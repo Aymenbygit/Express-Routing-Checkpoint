@@ -13,36 +13,36 @@ app.set('view engine', 'pug');
 app.set('views','./views');
 
 
-// const open_day = (req,res,next) => {
-//     if(day< 1 || day>5){
-//         res.send('This web application is only available in working time (Monday to Friday,  from 9 to 17)')}
-//         else next();
-// }
-// const open_hour = (req,res,next) => {
-//     if((hours<9 || hours>17) || (hours===17 && minutes!==0)){
-//     res.send('This web application is only available in working time (Monday to Friday,  from 9 to 17)')  
-//     } 
-//     else next();
-// }
+const open_day = (req,res,next) => {
+    if(day<4 || day>5){
+        res.send('This web application is only available in working time (Monday to Friday,  from 9 to 17)')}
+        else next();
+}
+const open_hour = (req,res,next) => {
+    if((hours<9 || hours>10) || (hours===17 && minutes!==0)){
+    res.send('This web application is only available in working time (Monday to Friday,  from 9 to 17)')  
+    } 
+    else next();
+}
 
 // app.get("/contact",open_day,open_hour,(req,res)=>{
 //     res.sendFile(path.join(__dirname, 'doc', 'contact.html'))
 // })
-app.get("/contact", function(req, res){
+app.get("/contact",open_day,open_hour, function(req, res){
     res.render('contact');
 });
 
 // app.get("/services",open_day,open_hour,(req,res)=>{
 //     res.sendFile(path.join(__dirname, 'doc', 'services.html'))
 // })
-app.get("/services", function(req, res){
+app.get("/services",open_day,open_hour, function(req, res){
     res.render('services');
 });
 
 // app.get("/",open_day,open_hour,(req,res)=>{
 //     res.sendFile(path.join(__dirname, 'doc', 'index.html'))
 // })
-app.get("/", function(req, res){
+app.get("/",open_day,open_hour, function(req, res){
     res.render('index');
  });
 
